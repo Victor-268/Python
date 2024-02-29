@@ -22,6 +22,14 @@ class Board:
 
         return False
 
+    #Check if there is a tie
+    def checkTie(self):
+        for row in self.board:
+            for cell in row:
+                if cell.isdigit():
+                    return False
+        return True
+
 class Player:
     def __init__(self, player):
         self.player = player
@@ -53,10 +61,16 @@ class Game:
             if self.board.checkwin():
                 print("Player 1 Wins!")
                 break
+            if self.board.checkTie():
+                print("Tie!")
+                break
             Player(2).decidemove(self.board.board)
             self.board.updateschema()
             if self.board.checkwin():
                 print("Player 2 Wins!")
+                break
+            if self.board.checkTie():
+                print("Tie!")
                 break
 
 Game().main()

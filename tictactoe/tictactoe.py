@@ -4,17 +4,20 @@ from cs50 import get_int
 def main():
     board = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
     updateschema(board)
+    player = 1
     while True:
-        decidemove(1, board)
+        decidemove(player, board)
         updateschema(board)
         if checkWin(board):
-            print("Player 1 Wins!")
+            print(f"Player {player} Wins!")
             break
-        decidemove(2, board)
-        updateschema(board)
-        if checkWin(board):
-            print("Player 2 Wins!")
+        if checkTie(board):
+            print("Tie!")
             break
+        if player == 1:
+            player = 2
+        else:
+            player = 1
 
 #Input player move
 def decidemove(player, board):
@@ -49,6 +52,14 @@ def checkWin(board):
             return True
 
     return False
+
+#Check if there is a tie
+def checkTie(board):
+    for row in board:
+        for cell in row:
+            if cell.isdigit():
+                return False
+    return True
 
 main()
 
